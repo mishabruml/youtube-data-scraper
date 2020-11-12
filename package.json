@@ -1,5 +1,5 @@
 {
-  "name": "youtube-scraper",
+  "name": "youtube-data-scraper",
   "engines": {
     "node": "^12.12",
     "npm": "^6.11.3"
