@@ -1,0 +1,14 @@
+{
+  "name": "youtube-scraper",
+  "engines": {
+    "node": "^12.12",
+    "npm": "^6.11.3"
+  },
+  "version": "1.0.0",
+  "author": "Misha Bruml",
+  "license": "ISC",
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  }
+}
