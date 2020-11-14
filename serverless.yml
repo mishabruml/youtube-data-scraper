@@ -1,0 +1,15 @@
+service: youtube-data-scraper
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  environment:
+    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+
+functions:
+  scrape-playlist-ids:
+    handler: src/handlers/scrape-playlist-ids/index.handler
