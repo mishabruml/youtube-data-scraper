@@ -31,6 +31,9 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
+    "@middy/core": "^1.4.0",
+    "@middy/sqs-json-body-parser": "^1.4.0",
+    "aws-sdk": "^2.792.0",
     "googleapis": "^64.0.0"
   }
 }
