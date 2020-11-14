@@ -13,3 +13,6 @@ provider:
 functions:
   scrape-playlist-ids:
     handler: src/handlers/scrape-playlist-ids/index.handler
+
+resources:
+  - ${file(resources/sqs.yml)}

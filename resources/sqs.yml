@@ -1,0 +1,12 @@
+Resources:
+  ScrapeVideosRequestQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-scrape-videos-request
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt ScrapeVideosRequestErrorQueue.Arn
+  ScrapeVideosRequestErrorQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-scrape-videos-request-error
