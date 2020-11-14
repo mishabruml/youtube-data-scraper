@@ -1,5 +1,5 @@
 import { youtube_v3 } from 'googleapis'
-import { NextPageToken, PlaylistId } from './get-playlist-items-data'
+import { NextPageToken, PlaylistId } from './models'
 
 export const listPlaylistItems = (youtubeClient: youtube_v3.Youtube, playlistId: PlaylistId, pageToken: NextPageToken) =>
   youtubeClient.playlistItems.list({

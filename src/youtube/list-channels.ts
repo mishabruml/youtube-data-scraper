@@ -1,5 +1,5 @@
 import { youtube_v3 } from 'googleapis'
-import { ChannelIds } from './get-channel-ids'
+import { ChannelIds } from './models'
 
 export const listChannels = (youtubeClient: youtube_v3.Youtube, channelIds: ChannelIds) =>
   youtubeClient.channels.list({

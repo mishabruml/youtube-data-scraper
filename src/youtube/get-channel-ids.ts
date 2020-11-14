@@ -1,7 +1,6 @@
 import { youtube_v3 } from 'googleapis'
 import { SuccessfulResponses } from './filter-responses'
-
-export type ChannelIds = string[]
+import { ChannelIds } from './models'
 
 export const getChannelIds = (searchChannelResponses: SuccessfulResponses<youtube_v3.Schema$SearchListResponse>): ChannelIds =>
   searchChannelResponses

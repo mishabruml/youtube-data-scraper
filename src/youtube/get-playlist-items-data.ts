@@ -1,19 +1,11 @@
 import { youtube_v3 } from 'googleapis'
 import { GaxiosResponse } from 'gaxios/build/src/common'
-
-export type NextPageToken = string | undefined
-export type PlaylistId = string
-
-export interface VideoData {
-  publishedAt: string
-  title: string
-}
-
-export interface PlaylistItemsData {
-  videoData: VideoData[] | undefined
-  playlistId: string
-  nextPageToken: NextPageToken
-}
+import {
+  NextPageToken,
+  PrevPageToken,
+  PlaylistId,
+  PlaylistItemsData
+} from './models'
 
 // TODO: validate here, stop typecasting
 export const getPlaylistItemsData = (playlistItemListResponse: GaxiosResponse<youtube_v3.Schema$PlaylistItemListResponse>, playlistId: PlaylistId): PlaylistItemsData => ({
@@ -24,5 +16,6 @@ export const getPlaylistItemsData = (playlistItemListResponse: GaxiosResponse<yo
     }
   )),
   nextPageToken: playlistItemListResponse.data.nextPageToken as NextPageToken,
+  prevPageToken: playlistItemListResponse.data.prevPageToken as PrevPageToken,
   playlistId
 })
