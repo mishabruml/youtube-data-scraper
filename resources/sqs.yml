@@ -6,6 +6,7 @@ Resources:
       VisibilityTimeout: 60
       RedrivePolicy:
         deadLetterTargetArn: !GetAtt ScrapeVideosRequestErrorQueue.Arn
+        maxReceiveCount: 1 # don't want to rinse my free tier youtube API quota!
   ScrapeVideosRequestErrorQueue:
     Type: AWS::SQS::Queue
     Properties:
