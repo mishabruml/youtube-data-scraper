@@ -9,10 +9,31 @@ provider:
   region: eu-west-1
   environment:
     GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+    SCRAPE_VIDEOS_REQUEST_QUEUE_URL: !Ref ScrapeVideosRequestQueue
+
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - sqs:SendMessage
+      - sqs:SendMessageBatch
+    Resource: !Join
+      - ':'
+      - - 'arn:aws:sqs'
+        - !Ref AWS::Region
+        - !Ref AWS::AccountId
+        - ${self:service}-scrape-videos-request
 
 functions:
   scrape-playlist-ids:
     handler: src/handlers/scrape-playlist-ids/index.handler
 
+  scrape-videos:
+    handler: src/handlers/scrape-videos/index.handler
+    events:
+      - sqs:
+          arn: !GetAtt ScrapeVideosRequestQueue.Arn
+          batchSize: 1
+
 resources:
   - ${file(resources/sqs.yml)}
+
