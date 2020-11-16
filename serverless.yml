@@ -74,6 +74,25 @@ functions:
       - sqs:
           arn: !GetAtt StoreVideosQueue.Arn
           batchSize: 1
+
+  get-video:
+    handler: src/handlers/api/get-video/index.handler
+    events:
+      - http:
+          path: video/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: false   
+  
+  get-videos:
+    handler: src/handlers/api/get-videos/index.handler
+    events:
+      - http:
+          path: videos
+          method: get
+  
 resources:
   - ${file(resources/sqs.yml)}
   - ${file(resources/apigateway.yml)}
