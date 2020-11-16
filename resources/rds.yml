@@ -1,0 +1,17 @@
+Resources:
+  YoutubeDataScraperRDSCluster:
+    Type: 'AWS::RDS::DBCluster'
+    Properties:
+      MasterUsername: ${env:RDS_USERNAME}
+      MasterUserPassword: ${env:RDS_PASSWORD}
+      DBClusterIdentifier: ${self:service}-serverless-rds-cluster
+      Engine: aurora
+      DatabaseName: mydb
+  YoutubeDataScraperRDSInstance:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: ${self:service}-serverless-rds-instance
+      Engine: aurora
+      DBClusterIdentifier: !Ref YoutubeDataScraperRDSCluster
+      PubliclyAccessible: 'true'
+      DBInstanceClass: db.t3.small
