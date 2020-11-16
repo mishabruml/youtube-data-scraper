@@ -30,7 +30,15 @@ provider:
 
 functions:
   scrape-playlist-ids:
-    handler: src/handlers/scrape-playlist-ids/index.handler
+    handler: src/handlers/api/scrape-playlist-ids/index.handler
+    events:
+      - http:
+          path: scrape
+          method: get
+          request:
+            parameters:
+              querystrings:
+                channel: true
 
   scrape-videos:
     handler: src/handlers/scrape-videos/index.handler
