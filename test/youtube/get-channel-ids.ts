@@ -3,7 +3,7 @@ import { SuccessfulResponses } from '../../src/youtube/filter-responses'
 import { youtube_v3 } from 'googleapis'
 import { partial } from '../helpers'
 
-describe('get-channel-ids', () => {
+describe('getChannelIds', () => {
   test('should return channelIds from an array of Search Channel Responses', () => {
     const fakeChannelIds = ['1', '2', '3']
 
