@@ -4,11 +4,11 @@ import { ChannelIds } from './models'
 
 export const getChannelIds = (searchChannelResponses: SuccessfulResponses<youtube_v3.Schema$SearchListResponse>): ChannelIds =>
   searchChannelResponses
-    .map(res => {
-      // TODO: validate here and implement a custom type to stop the type casting
-      const items = res.value.data.items ?? []
-      const channel = items[0]
-      const snippet = channel.snippet as youtube_v3.Schema$SearchResultSnippet
+    .reduce<ChannelIds>((filtered, res) => {
+    if (res.value.data.items?.[0].snippet) {
+      const snippet = res.value.data.items[0].snippet
       const { channelId } = snippet
-      return channelId as string
-    })
+      filtered.push(channelId as string)
+    }
+    return filtered
+  }, [])
