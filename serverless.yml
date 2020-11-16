@@ -68,6 +68,12 @@ functions:
           arn: !GetAtt ScrapeVideosRequestQueue.Arn
           batchSize: 1
 
+  store-videos:
+    handler: src/handlers/store-videos/index.handler
+    events:
+      - sqs:
+          arn: !GetAtt StoreVideosQueue.Arn
+          batchSize: 1
 resources:
   - ${file(resources/sqs.yml)}
   - ${file(resources/apigateway.yml)}
