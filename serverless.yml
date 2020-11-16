@@ -41,4 +41,5 @@ functions:
 
 resources:
   - ${file(resources/sqs.yml)}
-
+  - ${file(resources/apigateway.yml)}
+  - ${file(resources/rds.yml)}
