@@ -1,0 +1,14 @@
+Resources:
+  ParameterRequestValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: ParameterRequestValidator
+        RestApiId:
+          Ref: ApiGatewayRestApi # reference the APIGateway RestAPI
+        ValidateRequestBody: false
+        ValidateRequestParameters: true #enforce request param validation
+
+  ApiGatewayMethodScrapeGet: # reference the API Gateway method created for GET scrape function
+      Properties:
+        RequestValidatorId:
+          Ref: ParameterRequestValidator
