@@ -20,12 +20,13 @@ provider:
     Action:
       - sqs:SendMessage
       - sqs:SendMessageBatch
-    Resource: !Join
-      - ':'
-      - - 'arn:aws:sqs'
-        - !Ref AWS::Region
-        - !Ref AWS::AccountId
-        - ${self:service}-scrape-videos-request
+    Resource: 
+    - !Join
+        - ':'
+        - - 'arn:aws:sqs'
+          - !Ref AWS::Region
+          - !Ref AWS::AccountId
+          - ${self:service}-scrape-videos-request
 
 functions:
   scrape-playlist-ids:
