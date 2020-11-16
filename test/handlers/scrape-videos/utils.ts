@@ -1,4 +1,17 @@
-import { normaliseString, stringContainsSearchTerms } from '../../../src/handlers/scrape-videos/utils'
+import {
+  normaliseString,
+  stringContainsSearchTerms,
+  isLastPage
+} from '../../../src/handlers/scrape-videos/utils'
+
+describe('isLastPage', () => {
+  test('returns true when nextPageToken is undefined', () => {
+    expect(isLastPage(undefined)).toBe(true)
+  })
+  test('returns false when nextPageToken is defined', () => {
+    expect(isLastPage('ABCDE')).toBe(false)
+  })
+})
 
 describe('normaliseString', () => {
   for (const { input, expected } of [
