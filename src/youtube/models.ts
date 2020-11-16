@@ -13,7 +13,5 @@ export interface PlaylistItemsData {
   videoData: VideoData[] | undefined
   playlistId: PlaylistId
   nextPageToken: NextPageToken
-  prevPageToken: PrevPageToken
 }
 export type NextPageToken = string | undefined
-export type PrevPageToken = string | undefined
