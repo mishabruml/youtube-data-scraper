@@ -23,7 +23,7 @@ jobs:
     - run: npm ci
 
     - name: test
-    - run: npm test
+      run: npm test
 
     - name: serverless deploy
       uses: serverless/github-action@master
