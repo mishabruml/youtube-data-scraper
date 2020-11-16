@@ -2,7 +2,6 @@ import { youtube_v3 } from 'googleapis'
 import { GaxiosResponse } from 'gaxios/build/src/common'
 import {
   NextPageToken,
-  PrevPageToken,
   PlaylistId,
   PlaylistItemsData
 } from './models'
@@ -16,6 +15,5 @@ export const getPlaylistItemsData = (playlistItemListResponse: GaxiosResponse<yo
     }
   )),
   nextPageToken: playlistItemListResponse.data.nextPageToken as NextPageToken,
-  prevPageToken: playlistItemListResponse.data.prevPageToken as PrevPageToken,
   playlistId
 })
