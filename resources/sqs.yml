@@ -11,3 +11,16 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: ${self:service}-scrape-videos-request-error
+
+  StoreVideosQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-store-videos
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt StoreVideosErrorQueue.Arn
+        maxReceiveCount: 1 # don't want to rinse my free tier youtube API quota!
+  StoreVideosErrorQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-store-videos-error
