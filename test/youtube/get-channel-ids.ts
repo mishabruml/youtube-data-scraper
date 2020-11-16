@@ -26,4 +26,11 @@ describe('get-channel-ids', () => {
 
     expect(getChannelIds(fakeSearchChannelResponses)).toEqual(['1'])
   })
+
+  test('should return empty array if no items for a SearchChannelResponse', () => {
+    const fakeSearchChannelResponses = partial<SuccessfulResponses<youtube_v3.Schema$SearchListResponse>>(
+      [{ value: { data: {} }, status: 'fulfilled' }]
+    )
+    expect(getChannelIds(fakeSearchChannelResponses)).toEqual([])
+  })
 })
