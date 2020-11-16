@@ -1,9 +1,11 @@
 import { google } from 'googleapis'
 import { listPlaylistItems } from '../../youtube/list-playlist-items'
 import { getPlaylistItemsData } from '../../youtube/get-playlist-items-data'
-import { sendScrapeVideosRequest } from './sqs'
+import { sendScrapeVideosRequest, sendStoreVideosRequest } from '../../sqs'
 import { ScrapeVideosRequestQueueEvent } from './models'
-import { isLastPage, stringContainsSearchTerms } from './utils'
+import { isLastPage } from './utils'
+import { filterTitles } from './filter-titles'
+import { getSearchFilter } from './get-search-filter-file'
 
 const youtube = google.youtube({
   version: 'v3',
@@ -14,20 +16,15 @@ export const eventHandler = async (event: ScrapeVideosRequestQueueEvent) => {
   const results = await Promise.allSettled(event.Records.map(async (record) => {
     const { body: { playlistId, pageToken } } = record
     const playlistItemsResponse = await listPlaylistItems(youtube, playlistId, pageToken)
-    const { nextPageToken, prevPageToken, videoData } = getPlaylistItemsData(playlistItemsResponse, playlistId)
+    const { nextPageToken, videoData } = getPlaylistItemsData(playlistItemsResponse, playlistId)
 
-    const searchTerms = ['pro',
-      'matt stephens',
-      '5',
-      'Mitchelton-Scott',
-      'Dubai stage'
-    ]
+    if (videoData) {
+      const searchFilter = await getSearchFilter(process.env.SEARCH_FILTER_FILENAME as string)
+      const searchMatches = filterTitles(videoData, searchFilter)
+      searchMatches.map(sendStoreVideosRequest)
+    }
 
-    const searchMatches = videoData?.filter(video => stringContainsSearchTerms(video.title, searchTerms))
-
-    console.log(searchMatches)
-
-    if (!isLastPage(nextPageToken, prevPageToken)) {
+    if (!isLastPage(nextPageToken)) {
       await sendScrapeVideosRequest({ playlistId, pageToken: nextPageToken })
     } else {
       console.log('Last page reached: no more videos for channel')
