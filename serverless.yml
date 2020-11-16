@@ -27,6 +27,12 @@ provider:
           - !Ref AWS::Region
           - !Ref AWS::AccountId
           - ${self:service}-scrape-videos-request
+    - !Join
+        - ':'
+        - - 'arn:aws:sqs'
+          - !Ref AWS::Region
+          - !Ref AWS::AccountId
+          - ${self:service}-store-videos
 
 functions:
   scrape-playlist-ids:
