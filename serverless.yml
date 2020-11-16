@@ -11,6 +11,14 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: eu-west-1
+  vpc: # default sg and subnets; don't want to spend on spinning another up! allows access from stack (lambdas) to RDS
+    securityGroupIds:
+      - sg-26858a60
+    subnetIds:
+      - subnet-5961663f # eu-west-1a
+      - subnet-2c9b8c64 # eu-west-1b
+      - subnet-96b3f2cc # eu-west-1c
+
   environment:
     GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     SCRAPE_VIDEOS_REQUEST_QUEUE_URL: !Ref ScrapeVideosRequestQueue
