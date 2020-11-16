@@ -3,6 +3,10 @@ service: youtube-data-scraper
 plugins:
   - serverless-plugin-typescript
 
+package:
+  include:
+    - src/handlers/scrape-videos/search_filter
+
 provider:
   name: aws
   runtime: nodejs12.x
