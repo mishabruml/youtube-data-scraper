@@ -14,6 +14,13 @@ provider:
   environment:
     GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     SCRAPE_VIDEOS_REQUEST_QUEUE_URL: !Ref ScrapeVideosRequestQueue
+    STORE_VIDEOS_QUEUE_URL: !Ref StoreVideosQueue
+    SEARCH_FILTER_FILENAME: search_filter
+    RDS_ENDPOINT: !GetAtt YoutubeDataScraperRDSCluster.Endpoint.Address
+    RDS_PORT: !GetAtt YoutubeDataScraperRDSCluster.Endpoint.Port
+    RDS_USERNAME: ${env:RDS_USERNAME}
+    RDS_PASSWORD: ${env:RDS_PASSWORD}
+    RDS_DB_NAME: mydb
 
   iamRoleStatements:
   - Effect: Allow
