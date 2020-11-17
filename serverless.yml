@@ -69,7 +69,15 @@ functions:
           arn: !GetAtt StoreVideosQueue.Arn
           batchSize: 10
 
-  get-video:
+  videos-get:
+    vpc: ${self:custom.defaultVpc}
+    handler: src/handlers/api/get-videos/index.handler
+    events:
+      - http:
+          path: videos
+          method: get
+
+  video-get:
     vpc: ${self:custom.defaultVpc}
     handler: src/handlers/api/get-video/index.handler
     events:
@@ -79,15 +87,19 @@ functions:
           request:
             parameters:
               paths:
-                id: false   
-  
-  get-videos:
+                id: true
+
+  video-delete:
     vpc: ${self:custom.defaultVpc}
-    handler: src/handlers/api/get-videos/index.handler
+    handler: src/handlers/api/delete-video/index.handler
     events:
       - http:
-          path: videos
-          method: get
+          path: video/{id}
+          method: delete
+          request:
+            parameters:
+              paths:
+                id: true
   
 custom: 
   defaultVpc: # default sg and subnets; don't want to spend on spinning another up! allows access from stack (lambdas) to RDS
