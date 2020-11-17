@@ -6,20 +6,20 @@ import { ScrapeVideosRequestQueueEvent } from './models'
 import { isLastPage } from './utils'
 import { filterTitles } from './filter-titles'
 import { getSearchFilter } from './get-search-filter-file'
-
-const youtube = google.youtube({
-  version: 'v3',
-  auth: process.env.GOOGLE_API_KEY
-})
+import config from 'convict'
 
 export const eventHandler = async (event: ScrapeVideosRequestQueueEvent) => {
+  const youtube = google.youtube({
+    version: 'v3',
+    auth: config.googleApiKey
+  })
   const results = await Promise.allSettled(event.Records.map(async (record) => {
     const { body: { playlistId, pageToken } } = record
     const playlistItemsResponse = await listPlaylistItems(youtube, playlistId, pageToken)
     const { nextPageToken, videoData } = getPlaylistItemsData(playlistItemsResponse, playlistId)
 
     if (videoData) {
-      const searchFilter = await getSearchFilter(process.env.SEARCH_FILTER_FILENAME as string)
+      const searchFilter = await getSearchFilter(config.searchFilterFilename)
       const searchMatches = filterTitles(videoData, searchFilter)
       searchMatches.map(sendStoreVideosRequest)
     }

@@ -1,12 +1,13 @@
 import { Sequelize } from 'sequelize'
 import { videoModel } from './models/video'
+import aws from './config'
 
 const sequelize = new Sequelize({
-  host: process.env.RDS_ENDPOINT,
-  port: parseInt(process.env.RDS_PORT as string),
-  username: process.env.RDS_USERNAME,
-  password: process.env.RDS_PASSWORD,
-  database: process.env.RDS_DB_NAME,
+  host: aws.rds.endpoint,
+  port: aws.rds.port,
+  username: aws.rds.username,
+  password: aws.rds.password,
+  database: aws.rds.databasename,
   dialect: 'mysql'
 })
 
@@ -15,7 +16,6 @@ const Models = { video }
 const connection: {isConnected?: boolean} = {}
 
 export const connectDb = async () => {
-  console.log('trying db connect')
   if (connection.isConnected) {
     console.log('Sequelize using existing connection.')
     return Models

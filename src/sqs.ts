@@ -1,11 +1,12 @@
 import { ScrapeVideosRequestQueueRecordBody } from './handlers/scrape-videos/models'
 import { SQS } from 'aws-sdk'
 import { VideoData } from './youtube/models'
+import config from './config'
 const sqs = new SQS()
 
 export const sendScrapeVideosRequest = async ({ playlistId, pageToken }: ScrapeVideosRequestQueueRecordBody) => {
   const messageParams = {
-    QueueUrl: process.env.SCRAPE_VIDEOS_REQUEST_QUEUE_URL as string,
+    QueueUrl: config.aws.sqs.scrapeVideosQueueUrl,
     MessageBody: JSON.stringify({ playlistId, pageToken })
   }
 
@@ -14,7 +15,7 @@ export const sendScrapeVideosRequest = async ({ playlistId, pageToken }: ScrapeV
 
 export const sendStoreVideosRequest = async (videoData: VideoData) => {
   const messageParams = {
-    QueueUrl: process.env.STORE_VIDEOS_QUEUE_URL as string,
+    QueueUrl: config.aws.sqs.storeVideosQueueUrl,
     MessageBody: JSON.stringify(videoData)
   }
 

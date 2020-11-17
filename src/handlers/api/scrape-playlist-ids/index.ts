@@ -6,13 +6,14 @@ import { listChannels } from '../../../youtube/list-channels'
 import { getUploadPlaylistIds } from '../../../youtube/get-upload-playlist-ids'
 import { filterSuccessfulResponses } from '../../../youtube/filter-responses'
 import { sendScrapeVideosRequest } from '../../../sqs'
-
-const youtube = google.youtube({
-  version: 'v3',
-  auth: process.env.GOOGLE_API_KEY
-})
+import googleApiKey from '../../../config'
 
 export const handler: APIGatewayProxyHandler = async (event): Promise<APIGatewayProxyResult> => {
+  const youtube = google.youtube({
+    version: 'v3',
+    auth: googleApiKey
+  })
+
   const channels = event.multiValueQueryStringParameters?.channel
   if (channels) {
     try {
