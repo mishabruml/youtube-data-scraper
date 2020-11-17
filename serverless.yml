@@ -71,7 +71,7 @@ functions:
 
   videos-get:
     vpc: ${self:custom.defaultVpc}
-    handler: src/handlers/api/get-videos/index.handler
+    handler: src/handlers/api/videos-get/index.handler
     events:
       - http:
           path: videos
@@ -79,7 +79,7 @@ functions:
 
   video-get:
     vpc: ${self:custom.defaultVpc}
-    handler: src/handlers/api/get-video/index.handler
+    handler: src/handlers/api/video-get/index.handler
     events:
       - http:
           path: video/{id}
@@ -91,7 +91,7 @@ functions:
 
   video-delete:
     vpc: ${self:custom.defaultVpc}
-    handler: src/handlers/api/delete-video/index.handler
+    handler: src/handlers/api/video-delete/index.handler
     events:
       - http:
           path: video/{id}
@@ -100,6 +100,19 @@ functions:
             parameters:
               paths:
                 id: true
+
+  videos-search:
+    vpc: ${self:custom.defaultVpc}
+    handler: src/handlers/api/videos-search/index.handler
+    events:
+      - http:
+          path: videos
+          method: get
+          request:
+            parameters:
+              querystrings:
+                q: true
+
   
 custom: 
   defaultVpc: # default sg and subnets; don't want to spend on spinning another up! allows access from stack (lambdas) to RDS
