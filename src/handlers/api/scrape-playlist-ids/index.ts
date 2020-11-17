@@ -43,7 +43,7 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<APIGateway
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: `youtube data scrape request initated for ${channels}`
+      message: `Request to scrape youtube videos from ${channels} has been initiated`
     })
   }
 }
