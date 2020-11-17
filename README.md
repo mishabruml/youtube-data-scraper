@@ -24,19 +24,19 @@ Currently this project cannot be run locally, it was easier and faster to develo
 
 The base API URL is subject to change any time a deployment happens, since API gateway randomly assigns it every time, unless you pay for a custom domain name, which I've not done for this project. Contact mishabruml@gmail.com for a working API URL.
 
-  **GET** - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/scrape
+  **GET** /scrape - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/scrape
 Initiates the scrape. Use a query parameter `channel` to specify a channel. You can specify more than one at a time. For example, to scrape youtube videos from `GlobalCyclingNetwork` and `globalmtb` in a single call, make a GET request to https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/scrape?channel=GlobalCyclingNetwork&channel=globalmtb
 
-  **GET** - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/videos
+  **GET** /videos - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/videos
   Gets all videos
   
-  **GET** - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/video/{id}
+  **GET** /video{id}- https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/video/{id}
   Get a video by id e.g. https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/video/12345
   
-  **DELETE** - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/video/{id}
+  **DELETE** /video{id}- https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/video/{id}
 Make a DELETE HTTP request to this endpoint to delete a video by id e.g. https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/video/12345
 
-  **GET** - https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/videos/search
+  **GET** /videos/search?q=foo- https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/videos/search
 Search for video(s) with the query parameter q, for example
 https://43dsxyxd92.execute-api.eu-west-1.amazonaws.com/dev/videos/search?q=bike 
 or
