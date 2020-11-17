@@ -1,4 +1,3 @@
-/* eslint-disable no-void */
 import { StoreVideoQueueEvent } from './models'
 import { str as hash } from 'crc-32'
 import { formatDateISOtoSQL } from './utils'

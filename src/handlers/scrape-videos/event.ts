@@ -6,7 +6,7 @@ import { ScrapeVideosRequestQueueEvent } from './models'
 import { isLastPage } from './utils'
 import { filterTitles } from './filter-titles'
 import { getSearchFilter } from './get-search-filter-file'
-import config from 'convict'
+import config from '../../config'
 
 export const eventHandler = async (event: ScrapeVideosRequestQueueEvent) => {
   const youtube = google.youtube({
