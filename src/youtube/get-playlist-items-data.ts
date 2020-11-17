@@ -13,7 +13,7 @@ export const getPlaylistItemsData = (playlistItemListResponse: GaxiosResponse<yo
       title: item.snippet?.title as string,
       publishedAt: item.snippet?.publishedAt as string
     }
-  )),
+  )) ?? [],
   nextPageToken: playlistItemListResponse.data.nextPageToken as NextPageToken,
   playlistId
 })
