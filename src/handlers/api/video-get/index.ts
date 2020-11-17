@@ -18,8 +18,6 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<APIGateway
       rejectOnEmpty: true
     })
 
-    console.log(videoResult)
-
     const { id, title, date } = videoResult
 
     return {
