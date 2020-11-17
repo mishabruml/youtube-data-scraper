@@ -1,5 +1,7 @@
 # youtube-data-scraper
 
+![youtube-data-scraper system diagram](/images/youtube-data-scraper.png)
+
 Serverless/Typescript project. REST API to scrape metadata from all youtube videos uploaded to a channel(s), store them in a SQL database, and get/query/delete. Deployed to AWS using serverless and github actions. Lambda used for API/functions SQS for buffering/distribution, APIGateway for the API and RDS Aurora for persistence
 
  ## Installation
@@ -48,8 +50,6 @@ To run the suite;
 I have provided some basic unit tests, not on all functions and files. These are to give you an idea of what I can do, and show that I am always thinking of testing, but it would of course be my preference and intention to continue in the same vein, giving deep coverage of the service, but I was spending quite a lot of time on this already! 
 
 ## Design/how it works
-
-![youtube-data-scraper system diagram](/images/youtube-data-scraper.png)
 
 The system is designed around serverless and AWS and so has the usual resilience/scalability/availability that you'd expect from these platforms and patterns. A request to the scrape playlist ids endpoint will obtain upload playlist ids for a given array of youtube channel search strings, using youtubes search api. These playlist ids are sent to an SQS queue where they are consumed by another lambda, scrape-videos, where another youtube API (list playlist items) is performed to grab videos from that upload playlist. This API will only give 50 results max per call, and given there are 1000s of videos on the GCN/GlobalMTB channels, it was necessary to paginate the results; this was done by sending the playlistId and pageToken back to the queue which gave a fast and horizontally scalable way to traverse the results pages.
 
