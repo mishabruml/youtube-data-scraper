@@ -5,13 +5,13 @@ Resources:
       MasterUsername: ${env:RDS_USERNAME}
       MasterUserPassword: ${env:RDS_PASSWORD}
       DBClusterIdentifier: ${self:service}-serverless-rds-cluster
-      Engine: aurora
+      Engine: aurora-mysql
       DatabaseName: mydb
   YoutubeDataScraperRDSInstance:
     Type: 'AWS::RDS::DBInstance'
     Properties:
       DBInstanceIdentifier: ${self:service}-serverless-rds-instance
-      Engine: aurora
+      Engine: aurora-mysql
       DBClusterIdentifier: !Ref YoutubeDataScraperRDSCluster
       PubliclyAccessible: 'true'
       DBInstanceClass: db.t3.small
