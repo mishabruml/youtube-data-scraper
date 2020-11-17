@@ -8,7 +8,7 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<APIGateway
   if (!search) {
     return {
       statusCode: 400,
-      body: 'Please provide search'
+      body: 'Please provide search querystring'
     }
   }
 
@@ -25,8 +25,7 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<APIGateway
 
     const videoResultsData = videoResults.map(video => ({
       id: video.id,
-      title: video.title,
-      date: video.date
+      title: video.title
     }))
 
     return {
