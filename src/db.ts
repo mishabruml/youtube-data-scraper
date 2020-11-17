@@ -1,13 +1,15 @@
 import { Sequelize } from 'sequelize'
 import { videoModel } from './models/video'
-import aws from './config'
+import config from './config'
+
+const { aws: { rds } } = config
 
 const sequelize = new Sequelize({
-  host: aws.rds.endpoint,
-  port: aws.rds.port,
-  username: aws.rds.username,
-  password: aws.rds.password,
-  database: aws.rds.databasename,
+  host: rds.endpoint,
+  port: rds.port,
+  username: rds.username,
+  password: rds.password,
+  database: rds.databasename,
   dialect: 'mysql'
 })
 
