@@ -17,7 +17,7 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<APIGateway
     const videoResults = await video.findAll({
       where: {
         title: {
-          [Op.like]: `${search}`
+          [Op.like]: `%${search}%`
         }
       },
       raw: true
