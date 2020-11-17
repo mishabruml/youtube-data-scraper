@@ -8,7 +8,17 @@ Resources:
         ValidateRequestBody: false
         ValidateRequestParameters: true #enforce request param validation
 
-  ApiGatewayMethodScrapeGet: # reference the API Gateway method created for GET scrape function
-      Properties:
-        RequestValidatorId:
-          Ref: ParameterRequestValidator
+  ApiGatewayMethodScrapeGet:
+    Properties:
+      RequestValidatorId:
+        Ref: ParameterRequestValidator
+
+  ApiGatewayMethodVideoIdVarGet:
+    Properties:
+      RequestValidatorId:
+        Ref: ParameterRequestValidator
+
+  ApiGatewayMethodVideoIdVarDelete:
+    Properties:
+      RequestValidatorId:
+        Ref: ParameterRequestValidator
